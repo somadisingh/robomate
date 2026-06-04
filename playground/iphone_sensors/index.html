@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iPhone Sensor Fusion Report</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2937; background: #f7f7f4; }
+    main { max-width: 1180px; margin: 0 auto; padding: 32px 20px 56px; }
+    h1 { margin: 0 0 6px; font-size: 34px; }
+    h2 { margin: 32px 0 12px; font-size: 22px; }
+    p { color: #4b5563; }
+    video, img { width: 100%; height: auto; background: #111827; border: 1px solid #d1d5db; }
+    .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; align-items: start; }
+    table { border-collapse: collapse; width: 100%; background: white; }
+    th, td { border-bottom: 1px solid #e5e7eb; padding: 9px 12px; text-align: left; }
+    th { width: 240px; color: #374151; }
+    a { color: #075985; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>iPhone Sensor Fusion Report</h1>
+  <p>LiDAR depth is aligned in raw camera coordinates, then rendered in the iPhone display orientation.</p>
+  <table><tr><th>recording</th><td>2324C3E6-7780-4DEC-B058-5067458BF8EE</td></tr>
+<tr><th>startedAt</th><td>2026-05-23T09:21:31Z</td></tr>
+<tr><th>duration</th><td>6.45s</td></tr>
+<tr><th>video</th><td>1920x1440, 317 frames, fps 6340/129, display rotation -90 deg</td></tr>
+<tr><th>depth</th><td>256x192, 56 frames, float32 metres</td></tr>
+<tr><th>pose</th><td>318 camera 6DoF samples</td></tr>
+<tr><th>imu</th><td>645 samples</td></tr>
+<tr><th>depth render range</th><td>0.32m to 3.74m</td></tr>
+<tr><th>projection</th><td>depth camera intrinsics are scaled from the 1920x1440 video intrinsics, then rendered into the video frame</td></tr></table>
+
+  <h2>Rendered Videos</h2>
+  <div class="videos">
+    <section>
+      <h3>Projected LiDAR Depth Overlay</h3>
+      <video controls src="outputs/depth_overlay.mp4"></video>
+    </section>
+    <section>
+      <h3>Video Plus Sensor Fusion Panel</h3>
+      <video controls src="outputs/fusion_panel.mp4"></video>
+    </section>
+  </div>
+
+  <h2>Depth Projection Samples</h2>
+  <img src="outputs/depth_projection_samples.png" alt="Depth projection samples">
+
+  <h2>Sensor Fusion Dashboard</h2>
+  <img src="outputs/sensor_fusion_dashboard.png" alt="Sensor fusion dashboard">
+
+  <h2>World Point Cloud Map</h2>
+  <img src="outputs/world_point_cloud_map.png" alt="World point cloud map">
+
+  <p>Data exports: <a href="outputs/fused_timeline.csv">fused_timeline.csv</a>, <a href="outputs/world_point_cloud_sample.ply">world_point_cloud_sample.ply</a>.</p>
+</main>
+</body>
+</html>

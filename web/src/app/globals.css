@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f0f0f;
+  --surface: #151515;
+  --surface-elevated: #1b1b1b;
+  --surface-muted: #121212;
+  --foreground: #f5f7fb;
+  --foreground-secondary: #a4adba;
+  --foreground-tertiary: #6c7280;
+  --border: rgba(255, 255, 255, 0.1);
+  --lab: #3b5bdb;
+  --collector: #2f9e44;
+  --amber: #d8a347;
+  --danger: #d26464;
+  --graphite: #737883;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(59, 91, 219, 0.45);
+  color: var(--foreground);
+}
+
+.surface-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.surface-muted {
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.input-dark {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-elevated);
+  color: var(--foreground);
+  padding: 0.7rem 0.9rem;
+}
+
+.input-dark::placeholder {
+  color: var(--foreground-secondary);
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: rgba(59, 91, 219, 0.65);
+  box-shadow: 0 0 0 1px rgba(59, 91, 219, 0.28);
+}
+
+.btn-lab {
+  background: var(--lab);
+  color: white;
+}
+
+.btn-lab:hover {
+  background: #4b6af0;
+}
+
+.btn-collector {
+  background: var(--collector);
+  color: white;
+}
+
+.btn-collector:hover {
+  background: #38b754;
+}
+
+.btn-neutral {
+  background: var(--surface-elevated);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.btn-neutral:hover {
+  background: #232323;
+}
+
+.text-secondary {
+  color: var(--foreground-secondary);
+}
+
+.border-subtle {
+  border-color: var(--border);
+}
+
+.role-pill-lab {
+  background: rgba(59, 91, 219, 0.16);
+  color: #aebeff;
+}
+
+.role-pill-collector {
+  background: rgba(47, 158, 68, 0.16);
+  color: #99ddaa;
+}
+
+.tag-outdoor {
+  background: rgba(95, 140, 88, 0.18);
+  color: #a7cf9f;
+  border-color: rgba(95, 140, 88, 0.4);
+}
+
+.tag-indoor {
+  background: rgba(98, 124, 173, 0.18);
+  color: #b1c6f0;
+  border-color: rgba(98, 124, 173, 0.4);
+}
+
+.tag-motion {
+  background: rgba(216, 163, 71, 0.16);
+  color: #f0cb7c;
+  border-color: rgba(216, 163, 71, 0.36);
+}
+
+.tag-monochrome {
+  background: rgba(115, 120, 131, 0.18);
+  color: #d3d7de;
+  border-color: rgba(115, 120, 131, 0.38);
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,27 @@
+[project]
+name = "temporal-action-segmentation"
+version = "0.1.0"
+description = "Hackathon VITRA-inspired temporal action segmentation for unlabelled egocentric video."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "mediapipe>=0.10.35",
+    "numpy>=2.2.0",
+    "opencv-python>=4.13.0.92",
+    "openai>=2.0.0",
+    "pytest>=8.4.0",
+]
+
+[project.scripts]
+tas = "temporal_action_segmentation.cli:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["temporal_action_segmentation*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

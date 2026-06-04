@@ -1,0 +1,18 @@
+{
+  "name": "iphone-spark-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "convert:iphone-data-3": "node scripts/convert-to-spz.js ../outputs/nerfstudio_modal_exports/iphone-data-3/splat.ply public/splats/iphone-data-3.spz",
+    "camera-path:iphone-data-3": "node scripts/export-camera-path.js ../outputs/nerfstudio/iphone-data-3/transforms.json ../outputs/nerfstudio_modal_exports/iphone-data-3/run_meta/dataparser_transforms.json public/camera-paths/iphone-data-3.json"
+  },
+  "dependencies": {
+    "@sparkjsdev/spark": "^2.1.0",
+    "three": "^0.180.0",
+    "vite": "^6.0.11"
+  }
+}

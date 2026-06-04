@@ -1,0 +1,6 @@
+__pycache__/
+.venv/
+.env
+models/*.task
+models/*.tmp
+data/

@@ -1,0 +1,14 @@
+[project]
+name = "yolo-video-playground"
+version = "0.1.0"
+description = "YOLO26 video inference examples for detection, OBB, tracking, semantic segmentation, and instance segmentation."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "lap>=0.5.12",
+    "opencv-python>=4.13.0.92",
+    "ultralytics>=8.4.53",
+]
+
+[tool.uv]
+python-preference = "only-system"

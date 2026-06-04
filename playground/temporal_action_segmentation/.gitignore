@@ -1,0 +1,15 @@
+.venv/
+.env
+!.env.example
+.pytest_cache/
+__pycache__/
+*.pyc
+*.egg-info/
+models/
+cache/
+data/
+videos/
+outputs/
+*.mp4
+*.mov
+*.avi

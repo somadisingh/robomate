@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+DerivedData/
+build/
+
+# XcodeGen-generated project — regenerate with `xcodegen generate`
+*.xcodeproj
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Packages/
+
+# Secrets (Supabase keys, etc.) — never commit these
+Secrets.xcconfig
+*.env
+# Real Supabase config (template: SupabaseConfig.example.swift).
+# No leading slash -> matches the filename at any depth, so it survives folder moves.
+SupabaseConfig.swift

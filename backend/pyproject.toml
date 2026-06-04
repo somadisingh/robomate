@@ -1,0 +1,27 @@
+[project]
+name = "copilot-hackathon-backend"
+version = "0.1.0"
+description = "Modal backend pipeline for Copilot Hackathon recording analysis."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "google-genai>=1.0.0",
+    "httpx>=0.28.0",
+    "modal>=1.1.0",
+    "numpy>=2.2.0",
+    "opencv-python-headless>=4.13.0.92",
+    "pydantic>=2.7.0",
+    "python-dotenv>=1.0.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.uv]
+python-preference = "only-system"

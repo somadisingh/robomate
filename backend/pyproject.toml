@@ -10,6 +10,7 @@ dependencies = [
     "modal>=1.1.0",
     "numpy>=2.2.0",
     "opencv-python-headless>=4.13.0.92",
+    "pinecone>=5.0.0",
     "pydantic>=2.7.0",
     "python-dotenv>=1.0.1",
 ]

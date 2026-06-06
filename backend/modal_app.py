@@ -34,7 +34,9 @@ from backend.orchestrator import (
     mark_job,
     prune_resource_intensive_jobs,
     run_gemini,
+    run_recording_index_step,
     run_remote_analyzer,
+    run_temporal_annotation_step,
     update_final_status,
     utc_now,
 )
@@ -148,6 +150,7 @@ orchestrator_image = (
     .pip_install(
         "httpx>=0.28.0",
         "google-genai>=1.0.0",
+        "pinecone>=5.0.0",
         "fastapi[standard]>=0.115.0",
         "pydantic>=2.7.0",
         "python-dotenv>=1.0.1",
@@ -1108,6 +1111,10 @@ def process_recording(payload: dict) -> dict[str, object]:
                 on_conflict="recording_id,kind",
             )
 
+        gemini_score: float | None = None
+        # Parsed analyzer payloads kept in memory so the Pinecone recording
+        # indexer (Feature 1) can aggregate them at the end of the pipeline.
+        analysis_outputs: dict[str, Any] = {}
         futures = {}
         with ThreadPoolExecutor(max_workers=6) as executor:
             futures[executor.submit(run_gemini, api, request, task, video_bytes)] = "gemini_eval"
@@ -1206,6 +1213,9 @@ def process_recording(payload: dict) -> dict[str, object]:
                     continue
 
                 if kind == "gemini_eval":
+                    if isinstance(artifact_payload, dict):
+                        gemini_score = artifact_payload.get("score")
+                        analysis_outputs["gemini_eval"] = artifact_payload
                     continue
 
                 if kind == GAUSSIAN_SPLAT_KIND:
@@ -1230,6 +1240,8 @@ def process_recording(payload: dict) -> dict[str, object]:
                     continue
 
                 try:
+                    if kind in ("yolo_objects", "temporal_actions") and isinstance(artifact_payload, dict):
+                        analysis_outputs[kind] = artifact_payload
                     summary = detected_object_summary(artifact_payload) if kind == "yolo_objects" else None
                     run_remote_analyzer(api, request, kind, artifact_payload, summary)
                     if kind == "yolo_objects":
@@ -1249,6 +1261,25 @@ def process_recording(payload: dict) -> dict[str, object]:
                         finished_at=utc_now(),
                     )
                     continue
+
+        # Gemini temporal annotations. Runs after the analyzers above so the
+        # Gemini quality score is available. Fully isolated: it records its own
+        # job status and never raises. Returns the parsed annotations (or None).
+        temporal_annotations = run_temporal_annotation_step(
+            api, request, task, video_bytes, gemini_score
+        )
+
+        # Feature 1: aggregate all outputs into one Pinecone "recordings" vector.
+        # Post-processing only (not tracked in recording_analysis_jobs).
+        run_recording_index_step(
+            api,
+            request,
+            task,
+            recording,
+            analysis_outputs,
+            temporal_annotations,
+            gemini_score,
+        )
 
         final_status = update_final_status(api, request.recording_id)
         return {

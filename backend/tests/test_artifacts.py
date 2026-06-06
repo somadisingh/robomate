@@ -17,6 +17,7 @@ def test_analysis_artifact_paths_are_stable():
         "sam_segments": "abc123/analysis/sam-segments.json",
         "temporal_actions": "abc123/analysis/temporal-actions.json",
         "gaussian_splat": "abc123/analysis/gaussian_splat/manifest.json",
+        "gemini_temporal_annotations": "abc123/analysis/gemini-temporal-annotations.json",
     }
     assert set(paths) == set(ANALYSIS_FILENAMES)
 

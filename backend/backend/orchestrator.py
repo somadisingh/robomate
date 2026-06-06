@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -175,6 +176,149 @@ def finalize_multi_artifact_job(
         finished_at=utc_now(),
     )
     return artifact_path
+
+
+TEMPORAL_ANNOTATION_KIND: AnalysisKind = "gemini_temporal_annotations"
+
+
+def run_temporal_annotation_step(
+    api: SupabaseApi,
+    request: AnalysisRequest,
+    task: TaskRecord,
+    video_bytes: bytes,
+    gemini_score: float | None,
+) -> dict[str, Any] | None:
+    """Run the Gemini temporal annotator as an isolated analysis sub-step.
+
+    Writes recordings/<id>/analysis/gemini-temporal-annotations.json. This NEVER
+    raises: any failure is recorded on the job row only, so the rest of the
+    pipeline still completes. Returns the parsed annotations dict on success,
+    else None.
+
+    The recording's Pinecone embedding is no longer built here — that is owned by
+    ``run_recording_index_step`` (Feature 1), which aggregates ALL analyzer
+    outputs into the "recordings" namespace.
+    """
+    # Imported lazily so the orchestrator module stays importable even if the
+    # optional pinecone dependency isn't installed in a given environment.
+    from backend.analyzers.gemini_temporal_annotator import run_temporal_annotation
+
+    paths = analysis_artifact_paths(request.recording_id)
+    artifact_path = paths[TEMPORAL_ANNOTATION_KIND]
+
+    try:
+        # The submit-recording Edge Function doesn't seed this kind, so create the
+        # row here (like gaussian_splat) before marking it running. Everything is
+        # inside the try so even a missing migration / DB hiccup can't escape.
+        api.upsert_rows(
+            "recording_analysis_jobs",
+            [
+                {
+                    "recording_id": request.recording_id,
+                    "kind": TEMPORAL_ANNOTATION_KIND,
+                    "status": "pending",
+                    "artifact_path": artifact_path,
+                }
+            ],
+            on_conflict="recording_id,kind",
+        )
+        mark_job(
+            api,
+            request.recording_id,
+            TEMPORAL_ANNOTATION_KIND,
+            "running",
+            error=None,
+            started_at=utc_now(),
+            finished_at=None,
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            video_path = Path(tmp) / "video.mp4"
+            video_path.write_bytes(video_bytes)
+            annotations = run_temporal_annotation(
+                recording_id=request.recording_id,
+                video_path=str(video_path),
+                task_title=task.title,
+                task_description=task.description or task.title,
+                objects_to_detect=task.objects,
+            )
+
+        api.upload_json(RECORDINGS_BUCKET, artifact_path, annotations)
+
+        mark_job(
+            api,
+            request.recording_id,
+            TEMPORAL_ANNOTATION_KIND,
+            "succeeded",
+            artifact_path=artifact_path,
+            summary={
+                "task_completed": annotations.get("task_completed"),
+                "key_moment_count": len(annotations.get("key_moments", [])),
+                "failure_count": len(annotations.get("failure_moments", [])),
+            },
+            error=None,
+            finished_at=utc_now(),
+        )
+        return annotations
+    except Exception as exc:  # noqa: BLE001 - isolate from the rest of the pipeline
+        try:
+            mark_job(
+                api,
+                request.recording_id,
+                TEMPORAL_ANNOTATION_KIND,
+                "failed",
+                error=_temporal_error_message(exc),
+                finished_at=utc_now(),
+            )
+        except Exception:  # noqa: BLE001 - never let cleanup raise
+            print(f"[temporal_annotator] failed and could not record failure: {exc}")
+        return None
+
+
+def _temporal_error_message(error: BaseException) -> str:
+    message = str(error).strip()
+    return message or error.__class__.__name__
+
+
+def run_recording_index_step(
+    api: SupabaseApi,
+    request: AnalysisRequest,
+    task: TaskRecord,
+    recording: RecordingRecord,
+    outputs: dict[str, Any],
+    temporal_annotations: dict[str, Any] | None,
+    gemini_score: float | None,
+) -> None:
+    """Feature 1: aggregate all analyzer outputs into a single embedding and
+    upsert it to Pinecone namespace "recordings".
+
+    Post-processing only — NOT tracked in recording_analysis_jobs. The indexer
+    is internally try/except'd; we double-wrap here with a log so a failure can
+    never affect the recording's final status.
+    """
+    if not (os.environ.get("PINECONE_API_KEY") and (os.environ.get("PINECONE_INDEX_HOST") or os.environ.get("PINECONE_INDEX_NAME"))):
+        return
+    try:
+        from backend.analyzers.pinecone_recording_indexer import index_recording
+
+        task_extra = task.model_dump()
+        recording_extra = recording.model_dump()
+        index_recording(
+            recording_id=request.recording_id,
+            task_title=task.title,
+            task_description=task.description or task.title,
+            objects_to_detect=task.objects,
+            lab_id=str(task_extra.get("lab_id") or ""),
+            collector_id=str(recording_extra.get("collector_id") or ""),
+            gemini_eval=outputs.get("gemini_eval") or {},
+            yolo_detections=outputs.get("yolo_objects") or {},
+            temporal_actions=outputs.get("temporal_actions") or {},
+            temporal_annotations=temporal_annotations,
+            gemini_score=float(gemini_score or 0.0),
+            task_id=request.task_id,
+        )
+    except Exception as exc:  # noqa: BLE001 - never affect the pipeline
+        print(f"[recording_indexer] step skipped/failed: {exc}")
 
 
 # Minimum number of depth frames a recording needs before we attempt to train

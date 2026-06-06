@@ -12,6 +12,7 @@ AnalysisKind = Literal[
     "sam_segments",
     "temporal_actions",
     "gaussian_splat",
+    "gemini_temporal_annotations",
 ]
 
 AnalysisStatus = Literal["pending", "running", "succeeded", "failed"]
@@ -33,6 +34,7 @@ ANALYSIS_KINDS: tuple[AnalysisKind, ...] = (
     "sam_segments",
     "temporal_actions",
     "gaussian_splat",
+    "gemini_temporal_annotations",
 )
 
 # Kinds that run on every recording regardless of available streams.

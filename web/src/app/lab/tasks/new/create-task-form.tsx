@@ -17,6 +17,14 @@ type PreviewAsset = {
   url: string
 }
 
+type SimilarMatch = {
+  recording_id: string
+  score: number
+  task_title: string
+  gemini_score: number
+  objects: string[]
+}
+
 export default function CreateTaskForm({
   action,
 }: {
@@ -31,12 +39,39 @@ export default function CreateTaskForm({
   const [requirements, setRequirements] = useState<string[]>([])
   const [objects, setObjects] = useState('')
   const [assets, setAssets] = useState<PreviewAsset[]>([])
+  const [similarRecordings, setSimilarRecordings] = useState<SimilarMatch[]>([])
+  const [checkingForSimilar, setCheckingForSimilar] = useState(false)
+  const [bannerDismissed, setBannerDismissed] = useState(false)
 
   useEffect(() => {
     return () => {
       assets.forEach((asset) => URL.revokeObjectURL(asset.url))
     }
   }, [assets])
+
+  async function checkSimilar(force = false) {
+    if (!title.trim() || checkingForSimilar) return
+    if (!force && description.trim().length < 20) return
+    setCheckingForSimilar(true)
+    try {
+      const objs = objects
+        .split(',')
+        .map((item) => item.trim().toLowerCase())
+        .filter(Boolean)
+      const res = await fetch('/api/similar-recordings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description, objects: objs }),
+      })
+      const data = await res.json()
+      setSimilarRecordings(data.matches ?? [])
+      setBannerDismissed(false)
+    } catch {
+      // Advisory only — never block task creation.
+    } finally {
+      setCheckingForSimilar(false)
+    }
+  }
 
   function toggleRequirement(value: Requirement['value']) {
     setRequirements((current) =>
@@ -113,16 +148,76 @@ export default function CreateTaskForm({
                 />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-white">Description</label>
+                <div className="mb-1.5 flex items-center justify-between gap-3">
+                  <label className="block text-sm font-medium text-white">Description</label>
+                  <button
+                    type="button"
+                    onClick={() => checkSimilar(true)}
+                    disabled={!title.trim() || checkingForSimilar}
+                    className="text-xs font-medium text-[#aebeff] transition-colors hover:text-white disabled:opacity-40"
+                  >
+                    {checkingForSimilar ? 'Checking…' : 'Check existing demos'}
+                  </button>
+                </div>
                 <textarea
                   name="description"
                   required
                   rows={5}
                   value={description}
                   onChange={(event) => setDescription(event.target.value)}
+                  onBlur={() => checkSimilar()}
                   placeholder="Describe the framing, movement, duration, and any environment constraints collectors must follow."
                   className="input-dark resize-none py-3 text-sm"
                 />
+
+                {!bannerDismissed && similarRecordings.length > 0 && (
+                  <div className="mt-4 rounded-lg border border-[rgba(59,91,219,0.4)] bg-[rgba(59,91,219,0.1)] p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-0.5 text-[#aebeff]" aria-hidden>ⓘ</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-semibold text-white">
+                          You already have {similarRecordings.length} similar recording
+                          {similarRecordings.length === 1 ? '' : 's'} in your dataset
+                        </p>
+                        <p className="mt-0.5 text-sm text-[var(--foreground-secondary)]">
+                          Are you looking for more diversity, or is your current dataset sufficient?
+                        </p>
+                        <div className="mt-3 space-y-2">
+                          {similarRecordings.slice(0, 3).map((m) => (
+                            <div
+                              key={m.recording_id}
+                              className="flex items-center justify-between gap-3 rounded-md bg-[rgba(255,255,255,0.04)] px-3 py-2"
+                            >
+                              <div className="min-w-0">
+                                <p className="truncate text-sm text-white">{m.task_title || 'Recording'}</p>
+                                <p className="text-xs text-[var(--foreground-secondary)]">
+                                  Similarity {Math.round(m.score * 100)}% · Quality {m.gemini_score}/10
+                                </p>
+                              </div>
+                              <div className="flex shrink-0 items-center gap-2">
+                                <a
+                                  href={`/studio/${m.recording_id}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="btn-neutral rounded-md px-2.5 py-1 text-xs font-medium"
+                                >
+                                  View Recording
+                                </a>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setBannerDismissed(true)}
+                          className="mt-3 text-xs font-medium text-[var(--foreground-secondary)] underline transition-colors hover:text-white"
+                        >
+                          Post Anyway
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </section>

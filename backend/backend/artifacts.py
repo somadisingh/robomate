@@ -13,6 +13,7 @@ ANALYSIS_FILENAMES: dict[AnalysisKind, str] = {
     "sam_segments": "sam-segments.json",
     "temporal_actions": "temporal-actions.json",
     "gaussian_splat": "gaussian_splat/manifest.json",
+    "gemini_temporal_annotations": "gemini-temporal-annotations.json",
 }
 
 

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import SubmissionsLive, { type AnalysisJob, type RecordingAnalysis } from './submissions-live'
 import EditableTaskHeader from './editable-task-header'
+import BestMatchedCollectors from './best-matched-collectors'
 
 export default async function LabTaskPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -142,6 +143,13 @@ export default async function LabTaskPage({ params }: { params: Promise<{ id: st
           </p>
         )}
       </div>
+
+      {/* Best matched collectors (Pinecone "collectors" namespace) */}
+      <BestMatchedCollectors
+        taskTitle={task.title}
+        taskDescription={task.description ?? null}
+        objects={(task.objects as string[] | null) ?? []}
+      />
 
       {/* Live submissions — client component owns Realtime */}
       <div className="flex items-center gap-2 mb-4">

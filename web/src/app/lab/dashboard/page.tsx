@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
+import SemanticSearch from '@/components/SemanticSearch'
 
 export default async function LabDashboard() {
   const supabase = await createClient()
@@ -39,6 +40,9 @@ export default async function LabDashboard() {
           + New Task
         </Link>
       </div>
+
+      {/* Semantic search over processed recordings */}
+      <SemanticSearch />
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">

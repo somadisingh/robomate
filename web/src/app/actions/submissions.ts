@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { updateCollectorProfile } from '@/lib/collector-profile'
 
 export async function approveSubmission(submissionId: string, taskId: string) {
   const supabase = await createClient()
@@ -36,6 +37,12 @@ export async function approveSubmission(submissionId: string, taskId: string) {
 
   // 4. Increment quantity_filled on the task
   await supabase.rpc('increment_quantity_filled', { task_id: taskId })
+
+  // 5. Feature 3: refresh this collector's Pinecone profile vector from their
+  // full approved history. Fire-and-forget — never block the approval.
+  if (submission.collector_id) {
+    await updateCollectorProfile(submission.collector_id)
+  }
 
   revalidatePath(`/lab/tasks/${taskId}`)
   return { success: true }

@@ -106,14 +106,14 @@ export default async function LabTaskPage({ params }: { params: Promise<{ id: st
                 {task.data_type}
               </span>
               {((task.required_capabilities as string[] | null) ?? []).map((cap: string) => (
-                <span key={cap} className="rounded-full border border-[var(--border)] bg-[rgba(59,91,219,0.12)] px-2 py-0.5 text-xs text-[#aebeff]">
+                <span key={cap} className="rounded-full border border-[var(--border)] bg-[rgba(124,92,255,0.12)] px-2 py-0.5 text-xs text-[#c4b6ff]">
                   {cap}
                 </span>
               ))}
             </div>
           </div>
           <div className="text-right shrink-0">
-            <div className="text-2xl font-bold text-[#aebeff]">${task.bounty_amount}</div>
+            <div className="text-2xl font-bold text-[#c4b6ff]">${task.bounty_amount}</div>
             <div className="text-xs text-[var(--foreground-secondary)]">per submission</div>
           </div>
         </div>
@@ -128,7 +128,7 @@ export default async function LabTaskPage({ params }: { params: Promise<{ id: st
           </div>
           <div className="h-2 overflow-hidden rounded-full bg-[rgba(255,255,255,0.08)]">
             <div
-              className="h-full rounded-full bg-[#3b5bdb] transition-all"
+              className="h-full rounded-full bg-[#7c5cff] transition-all"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -145,7 +145,7 @@ export default async function LabTaskPage({ params }: { params: Promise<{ id: st
 
       {/* Live submissions — client component owns Realtime */}
       <div className="flex items-center gap-2 mb-4">
-        <span className="h-2 w-2 rounded-full bg-[#2f9e44] animate-pulse" />
+        <span className="h-2 w-2 rounded-full bg-[#12b886] animate-pulse" />
         <span className="text-xs text-[var(--foreground-secondary)]">Live — updates automatically when collectors upload</span>
       </div>
 

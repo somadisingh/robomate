@@ -34,13 +34,13 @@ export default function SignupPage() {
                 onClick={() => setRole('lab')}
                 className={`rounded-lg border p-4 text-left transition-all ${
                   role === 'lab'
-                    ? 'border-[rgba(59,91,219,0.65)] bg-[rgba(59,91,219,0.16)] text-white'
+                    ? 'border-[rgba(124,92,255,0.65)] bg-[rgba(124,92,255,0.16)] text-white'
                     : 'border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground-secondary)] hover:border-[rgba(255,255,255,0.22)]'
                 }`}
               >
                 <div className="text-lg mb-1">🔬</div>
                 <div className="font-medium text-sm">Lab / Researcher</div>
-                <div className={`mt-1 text-xs ${role === 'lab' ? 'text-[#d7deff]' : 'text-[var(--foreground-secondary)]'}`}>
+                <div className={`mt-1 text-xs ${role === 'lab' ? 'text-[#ddd6ff]' : 'text-[var(--foreground-secondary)]'}`}>
                   Post data collection tasks
                 </div>
               </button>
@@ -49,13 +49,13 @@ export default function SignupPage() {
                 onClick={() => setRole('collector')}
                 className={`rounded-lg border p-4 text-left transition-all ${
                   role === 'collector'
-                    ? 'border-[rgba(47,158,68,0.7)] bg-[rgba(47,158,68,0.16)] text-white'
+                    ? 'border-[rgba(18,184,134,0.7)] bg-[rgba(18,184,134,0.16)] text-white'
                     : 'border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground-secondary)] hover:border-[rgba(255,255,255,0.22)]'
                 }`}
               >
                 <div className="text-lg mb-1">📱</div>
                 <div className="font-medium text-sm">Data Collector</div>
-                <div className={`mt-1 text-xs ${role === 'collector' ? 'text-[#c6efd0]' : 'text-[var(--foreground-secondary)]'}`}>
+                <div className={`mt-1 text-xs ${role === 'collector' ? 'text-[#c4f5e4]' : 'text-[var(--foreground-secondary)]'}`}>
                   Earn money collecting data
                 </div>
               </button>

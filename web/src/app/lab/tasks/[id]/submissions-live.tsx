@@ -188,7 +188,7 @@ export default function SubmissionsLive({ taskId, initialSubmissions }: Props) {
         <p className="font-medium text-white">Waiting for submissions</p>
         <p className="mt-1 text-sm text-[var(--foreground-secondary)]">This page updates live when collectors upload data</p>
         <div className="mt-4 flex items-center justify-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[#2f9e44] animate-pulse" />
+          <span className="h-2 w-2 rounded-full bg-[#12b886] animate-pulse" />
           <span className="text-xs text-[var(--foreground-secondary)]">Listening for uploads</span>
         </div>
       </div>
@@ -202,7 +202,7 @@ export default function SubmissionsLive({ taskId, initialSubmissions }: Props) {
           Submissions <span className="font-normal text-[var(--foreground-secondary)]">({submissions.length})</span>
         </h2>
         {newCount > 0 && (
-          <span className="rounded-full bg-[rgba(47,158,68,0.16)] px-2 py-1 text-xs font-medium text-[#99ddaa]">
+          <span className="rounded-full bg-[rgba(18,184,134,0.16)] px-2 py-1 text-xs font-medium text-[#6ee7c0]">
             +{newCount} new this session
           </span>
         )}
@@ -228,14 +228,14 @@ export default function SubmissionsLive({ taskId, initialSubmissions }: Props) {
 const RECORDING_STATUS_STYLES: Record<RecordingAnalysis['status'], string> = {
   uploaded: 'bg-[rgba(115,120,131,0.18)] text-[#d3d7de]',
   analyzing: 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]',
-  analyzed: 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]',
+  analyzed: 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]',
   analysis_failed: 'bg-[rgba(210,100,100,0.16)] text-[#f3a8a8]',
 }
 
 const JOB_STATUS_STYLES: Record<AnalysisJobStatus, string> = {
   pending: 'border border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground-secondary)]',
   running: 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]',
-  succeeded: 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]',
+  succeeded: 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]',
   failed: 'bg-[rgba(210,100,100,0.16)] text-[#f3a8a8]',
 }
 
@@ -264,7 +264,7 @@ function SubmissionCard({
 
   const statusStyles = {
     pending: 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]',
-    approved: 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]',
+    approved: 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]',
     rejected: 'bg-[rgba(210,100,100,0.16)] text-[#f3a8a8]',
   }
 
@@ -368,7 +368,7 @@ function SubmissionCard({
           ) : recording?.id ? (
             <Link
               href={`/studio/${recording.id}`}
-              className="text-[10px] text-[#aebeff] hover:text-white transition-colors"
+              className="text-[10px] text-[#c4b6ff] hover:text-white transition-colors"
             >
               Open in studio →
             </Link>
@@ -377,7 +377,7 @@ function SubmissionCard({
           {/* Index status */}
           {indexStatus === 'indexed' ? (
             <div className="flex items-center gap-1">
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[rgba(59,91,219,0.16)] text-[#aebeff] font-medium">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[rgba(124,92,255,0.16)] text-[#c4b6ff] font-medium">
                 Indexed
               </span>
               <button

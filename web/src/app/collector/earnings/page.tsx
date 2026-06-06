@@ -12,7 +12,7 @@ type EarningsRow = {
 
 const BADGE_STYLES = {
   pending: 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]',
-  approved: 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]',
+  approved: 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]',
 }
 
 function buildChartPoints(rows: EarningsRow[]) {
@@ -95,7 +95,7 @@ export default async function EarningsPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--foreground-secondary)]">
               Total earned
             </p>
-            <div className="mt-4 text-[clamp(3rem,7vw,5rem)] font-black leading-none tracking-[-0.05em] text-[#8ad09a]">
+            <div className="mt-4 text-[clamp(3rem,7vw,5rem)] font-black leading-none tracking-[-0.05em] text-[#6ee7c0]">
               ${total.toFixed(2)}
             </div>
           </div>
@@ -143,7 +143,7 @@ export default async function EarningsPage() {
                   <line x1="24" y1="32" x2="296" y2="32" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
                   <polyline
                     fill="none"
-                    stroke="#2f9e44"
+                    stroke="#12b886"
                     strokeWidth="4"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -151,7 +151,7 @@ export default async function EarningsPage() {
                   />
                   {polyline.split(' ').map((point) => {
                     const [x, y] = point.split(',')
-                    return <circle key={point} cx={x} cy={y} r="4" fill="#2f9e44" />
+                    return <circle key={point} cx={x} cy={y} r="4" fill="#12b886" />
                   })}
                 </svg>
                 <div className="grid grid-cols-2 gap-3 text-xs text-[var(--foreground-secondary)] sm:grid-cols-4 lg:grid-cols-7">

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Robomate — Physical Data Marketplace",
+  title: "HTTYR — How to train your robot",
   description: "Earn money collecting real-world data for AI research",
 };
 

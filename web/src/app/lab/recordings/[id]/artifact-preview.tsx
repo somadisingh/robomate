@@ -85,7 +85,7 @@ export default function ArtifactPreview({
       <button
         type="button"
         onClick={handleToggle}
-        className="text-xs font-medium text-[#aebeff] hover:text-white transition-colors"
+        className="text-xs font-medium text-[#c4b6ff] hover:text-white transition-colors"
       >
         {open ? '▼' : '▶'} Preview JSON
       </button>
@@ -100,7 +100,7 @@ export default function ArtifactPreview({
               <button
                 type="button"
                 onClick={handleRetry}
-                className="text-xs font-medium text-[#aebeff] hover:text-white transition-colors"
+                className="text-xs font-medium text-[#c4b6ff] hover:text-white transition-colors"
               >
                 Retry
               </button>

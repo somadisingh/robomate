@@ -55,7 +55,7 @@ export default async function LabDashboard() {
           <div className="mt-1 text-sm text-[var(--foreground-secondary)]">Submissions received</div>
         </div>
         <div className="surface-panel p-4">
-          <div className="text-2xl font-bold text-[#aebeff]">${totalSpend.toFixed(2)}</div>
+          <div className="text-2xl font-bold text-[#c4b6ff]">${totalSpend.toFixed(2)}</div>
           <div className="mt-1 text-sm text-[var(--foreground-secondary)]">Total spent</div>
         </div>
       </div>
@@ -92,14 +92,14 @@ export default async function LabDashboard() {
                       {receivedByTask[task.id] ?? 0} / {task.quantity_needed} received
                     </span>
                     <span className="text-sm text-[var(--foreground-secondary)]">·</span>
-                    <span className="text-sm text-[#aebeff]">
+                    <span className="text-sm text-[#c4b6ff]">
                       {task.quantity_filled} / {task.quantity_needed} approved
                     </span>
                   </div>
                 </div>
                 <span className={`rounded-full px-2 py-1 text-xs font-medium ${
                   task.status === 'open'
-                    ? 'bg-[rgba(59,91,219,0.16)] text-[#aebeff]'
+                    ? 'bg-[rgba(124,92,255,0.16)] text-[#c4b6ff]'
                     : 'bg-[rgba(115,120,131,0.18)] text-[#d3d7de]'
                 }`}>
                   {task.status}
@@ -108,11 +108,11 @@ export default async function LabDashboard() {
               {/* Progress bars: received (dim) behind approved (solid) */}
               <div className="mt-3 relative h-1.5 overflow-hidden rounded-full bg-[rgba(255,255,255,0.08)]">
                 <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-[rgba(59,91,219,0.35)]"
+                  className="absolute inset-y-0 left-0 rounded-full bg-[rgba(124,92,255,0.35)]"
                   style={{ width: `${Math.min(100, ((receivedByTask[task.id] ?? 0) / task.quantity_needed) * 100)}%` }}
                 />
                 <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#3b5bdb]"
+                  className="absolute inset-y-0 left-0 rounded-full bg-[#7c5cff]"
                   style={{ width: `${Math.min(100, (task.quantity_filled / task.quantity_needed) * 100)}%` }}
                 />
               </div>

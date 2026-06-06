@@ -247,7 +247,7 @@ export default function LabSearch() {
                 ) : 'Index all videos'}
               </button>
               {indexAllStatus === 'done' && indexAllResult && (
-                <p className="mt-3 text-xs text-[#99ddaa]">
+                <p className="mt-3 text-xs text-[#6ee7c0]">
                   Done — indexed {indexAllResult.indexed}/{indexAllResult.total} videos
                   {indexAllResult.failed > 0 ? `, ${indexAllResult.failed} failed` : ''}
                 </p>
@@ -261,7 +261,7 @@ export default function LabSearch() {
                 </p>
                 <div className="flex items-center gap-3">
                   {indexAllStatus === 'done' && indexAllResult && (
-                    <span className="text-xs text-[#99ddaa]">
+                    <span className="text-xs text-[#6ee7c0]">
                       Indexed {indexAllResult.indexed}/{indexAllResult.total}
                       {indexAllResult.failed > 0 ? `, ${indexAllResult.failed} failed` : ''}
                     </span>
@@ -345,7 +345,7 @@ function VideoCard({ video }: { video: IndexedVideo }) {
 function ClipCard({ clip }: { clip: SearchClip }) {
   const confidenceStyle =
     clip.confidence === 'high'
-      ? 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]'
+      ? 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]'
       : clip.confidence === 'medium'
       ? 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]'
       : 'bg-[rgba(115,120,131,0.18)] text-[#d3d7de]'
@@ -375,7 +375,7 @@ function ClipCard({ clip }: { clip: SearchClip }) {
 
       <div className="p-3 flex flex-col gap-2 flex-1">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-[#aebeff]">Rank #{clip.rank}</span>
+          <span className="text-xs font-semibold text-[#c4b6ff]">Rank #{clip.rank}</span>
           <span className="text-xs font-mono text-[var(--foreground-secondary)]">
             {formatTime(clip.start)} – {formatTime(clip.end)}
           </span>

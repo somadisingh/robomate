@@ -67,13 +67,13 @@ export default async function CollectorTasksPage() {
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-xl font-bold text-[#8ad09a]">${task.bounty_amount}</div>
+                    <div className="text-xl font-bold text-[#6ee7c0]">${task.bounty_amount}</div>
                     <div className="text-xs text-[var(--foreground-secondary)]">per submission</div>
                   </div>
                 </div>
                 <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[rgba(255,255,255,0.08)]">
                   <div
-                    className="h-full rounded-full bg-[#2f9e44]"
+                    className="h-full rounded-full bg-[#12b886]"
                     style={{ width: `${progress}%` }}
                   />
                 </div>

@@ -51,7 +51,7 @@ export default function EditableTaskHeader({ taskId, initialTitle, initialDescri
           type="text"
           value={draftTitle}
           onChange={(e) => setDraftTitle(e.target.value)}
-          className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-muted)] px-3 py-1.5 text-xl font-bold text-white outline-none focus:border-[#3b5bdb] mb-2"
+          className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-muted)] px-3 py-1.5 text-xl font-bold text-white outline-none focus:border-[#7c5cff] mb-2"
           placeholder="Task title"
           disabled={isPending}
           autoFocus
@@ -60,7 +60,7 @@ export default function EditableTaskHeader({ taskId, initialTitle, initialDescri
           value={draftDescription}
           onChange={(e) => setDraftDescription(e.target.value)}
           rows={3}
-          className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-muted)] px-3 py-1.5 text-sm text-[var(--foreground-secondary)] outline-none focus:border-[#3b5bdb] resize-none"
+          className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-muted)] px-3 py-1.5 text-sm text-[var(--foreground-secondary)] outline-none focus:border-[#7c5cff] resize-none"
           placeholder="Task description (optional)"
           disabled={isPending}
         />
@@ -69,7 +69,7 @@ export default function EditableTaskHeader({ taskId, initialTitle, initialDescri
           <button
             onClick={save}
             disabled={isPending || !draftTitle.trim()}
-            className="rounded-md bg-[#3b5bdb] px-3 py-1 text-xs font-medium text-white hover:bg-[#4c6ef5] disabled:opacity-50 transition-colors"
+            className="rounded-md bg-[#7c5cff] px-3 py-1 text-xs font-medium text-white hover:bg-[#4c6ef5] disabled:opacity-50 transition-colors"
           >
             {isPending ? 'Saving…' : 'Save'}
           </button>
@@ -87,7 +87,7 @@ export default function EditableTaskHeader({ taskId, initialTitle, initialDescri
 
   const statusBadge = (
     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-      status === 'open' ? 'bg-[rgba(59,91,219,0.16)] text-[#aebeff]' : 'bg-[rgba(115,120,131,0.18)] text-[#d3d7de]'
+      status === 'open' ? 'bg-[rgba(124,92,255,0.16)] text-[#c4b6ff]' : 'bg-[rgba(115,120,131,0.18)] text-[#d3d7de]'
     }`}>
       {status}
     </span>

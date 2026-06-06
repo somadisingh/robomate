@@ -3,22 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-function GabrielHornLogo() {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision" className="w-8 h-8">
-      <line x1="2" y1="24" x2="46" y2="24" stroke="currentColor" strokeWidth="0.35" strokeDasharray="1 1.6" opacity="0.38" />
-      <ellipse cx="9" cy="24" rx="1.55" ry="10" stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
-      <ellipse cx="13" cy="24" rx="1.05" ry="6.2" stroke="currentColor" strokeWidth="0.65" opacity="0.42" />
-      <ellipse cx="18" cy="24" rx="0.72" ry="4.1" stroke="currentColor" strokeWidth="0.6" opacity="0.32" />
-      <ellipse cx="25" cy="24" rx="0.5" ry="2.8" stroke="currentColor" strokeWidth="0.55" opacity="0.24" />
-      <ellipse cx="34" cy="24" rx="0.36" ry="2.05" stroke="currentColor" strokeWidth="0.5" opacity="0.18" />
-      <path d="M 5.6 5.4 C 7.5 9, 11 22.2, 44.5 22.85" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M 5.6 42.6 C 7.5 39, 11 25.8, 44.5 25.15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <ellipse cx="5.6" cy="24" rx="2.6" ry="18.6" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  )
-}
+import { Brand } from '@/components/logo'
 
 const TICKER_EVENTS = [
   { task: 'Walking around · downtown', amt: '+$5.00', who: 'collector_8421', loc: 'SF, CA' },
@@ -43,12 +28,12 @@ function Ticker() {
   return (
     <div className="mt-12 flex items-center gap-6 flex-wrap">
       <span className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[var(--foreground-tertiary)]">
-        <span className="w-2 h-2 rounded-full bg-[#5fd78a] shadow-[0_0_0_0_rgba(95,215,138,0.55)] animate-pulse" />
+        <span className="w-2 h-2 rounded-full bg-[#1ac99a] shadow-[0_0_0_0_rgba(26,201,154,0.55)] animate-pulse" />
         Live collections
       </span>
       <div className="flex-1 min-w-80 overflow-hidden relative h-5">
         <div key={index} className="flex items-center gap-7 font-mono text-sm text-[var(--foreground-secondary)] whitespace-nowrap animate-fadeIn">
-          <span className="text-[#99ddaa] font-semibold">{event.amt}</span>
+          <span className="text-[#6ee7c0] font-semibold">{event.amt}</span>
           <span className="text-[var(--foreground-tertiary)]">/</span>
           <span>{event.task}</span>
           <span className="text-[var(--foreground-tertiary)]">·</span>
@@ -80,7 +65,7 @@ function NavAuth() {
     return (
       <div className="ml-auto flex items-center gap-5 text-sm text-[var(--foreground-secondary)]">
         <Link href="/login" className="transition-colors hover:text-white">Sign in</Link>
-        <Link href="/signup" className="btn-lab rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-[#4b6af0]">Get started</Link>
+        <Link href="/signup" className="btn-lab rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-[#8f74ff]">Get started</Link>
       </div>
     )
   }
@@ -122,17 +107,16 @@ export default function Home() {
         }
         .animate-fadeIn { animation: fadeIn 360ms cubic-bezier(0.2, 0.7, 0.2, 1); }
         @keyframes pulse {
-          0% { box-shadow: 0 0 0 0 rgba(95,215,138,0.55); }
-          70% { box-shadow: 0 0 0 8px rgba(95,215,138,0); }
-          100% { box-shadow: 0 0 0 0 rgba(95,215,138,0); }
+          0% { box-shadow: 0 0 0 0 rgba(26,201,154,0.55); }
+          70% { box-shadow: 0 0 0 8px rgba(26,201,154,0); }
+          100% { box-shadow: 0 0 0 0 rgba(26,201,154,0); }
         }
       `}</style>
 
-      <header className="border-b border-[rgba(255,255,255,0.08)] bg-[rgba(15,15,15,0.85)] backdrop-blur-sm sticky top-0 z-30">
-        <div className="mx-auto max-w-5xl px-8 py-5 flex items-center justify-between gap-6">
-          <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-            <GabrielHornLogo />
-            <span className="text-base font-bold tracking-[0.01em] text-white">Robomate</span>
+      <header className="sticky top-0 z-30 px-4 pt-4">
+        <div className="glass-nav mx-auto max-w-5xl px-6 py-3.5 flex items-center justify-between gap-6">
+          <Link href="/" className="flex items-center transition-opacity hover:opacity-80">
+            <Brand logoClassName="h-8 w-8" nameClassName="text-base" />
           </Link>
 
           <NavAuth />
@@ -158,10 +142,10 @@ export default function Home() {
             </p>
 
             <div className="mt-11 flex flex-col sm:flex-row gap-3 flex-wrap">
-              <Link href="/signup" className="btn-lab rounded-[10px] px-5.5 py-3.5 text-[15px] font-semibold inline-flex items-center gap-2 transition-colors hover:bg-[#4b6af0]">
+              <Link href="/signup" className="btn-lab rounded-[10px] px-5.5 py-3.5 text-[15px] font-semibold inline-flex items-center gap-2 transition-colors hover:bg-[#8f74ff]">
                 Post a task <span>→</span>
               </Link>
-              <Link href="/signup" className="btn-collector rounded-[10px] px-5.5 py-3.5 text-[15px] font-semibold inline-flex items-center gap-2 transition-colors hover:bg-[#38b754]">
+              <Link href="/signup" className="btn-collector rounded-[10px] px-5.5 py-3.5 text-[15px] font-semibold inline-flex items-center gap-2 transition-colors hover:bg-[#1ac99a]">
                 Start collecting <span>→</span>
               </Link>
               <a href="#stats" className="bg-transparent border border-[rgba(255,255,255,0.16)] rounded-[10px] px-5.5 py-3.5 text-[15px] font-medium inline-flex items-center gap-2 transition-colors hover:bg-[rgba(255,255,255,0.04)]">
@@ -171,7 +155,7 @@ export default function Home() {
           </section>
 
           <aside className="border-l border-[var(--border)] pl-10 pt-2">
-            <div className="text-[clamp(64px,7.4vw,110px)] font-black leading-[0.95] tracking-[-0.05em] text-[#aebeff]" style={{ fontVariantNumeric: 'tabular-nums' }}>
+            <div className="text-[clamp(64px,7.4vw,110px)] font-black leading-[0.95] tracking-[-0.05em] text-[#c4b6ff]" style={{ fontVariantNumeric: 'tabular-nums' }}>
               2,400
             </div>
             <div className="mt-3.5 text-xs uppercase tracking-[0.16em] text-[var(--foreground-secondary)] max-w-[16ch] leading-[1.5]">
@@ -180,7 +164,7 @@ export default function Home() {
 
             <div className="mt-11 border-t border-[var(--border)] pt-6">
               <div className="text-[15px] font-semibold text-white">Are you a lab?</div>
-              <Link href="/signup" className="mt-2 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#aebeff] transition-colors hover:text-white">
+              <Link href="/signup" className="mt-2 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#c4b6ff] transition-colors hover:text-white">
                 Set up in 2 minutes <span>→</span>
               </Link>
             </div>
@@ -210,7 +194,7 @@ export default function Home() {
             </div>
 
             <div className="md:border-r border-[var(--border)] py-9 md:px-8 md:py-9">
-              <div className="text-[clamp(48px,5.6vw,76px)] font-black tracking-[-0.04em] leading-[0.95]" style={{ color: '#99ddaa', fontVariantNumeric: 'tabular-nums' }}>
+              <div className="text-[clamp(48px,5.6vw,76px)] font-black tracking-[-0.04em] leading-[0.95]" style={{ color: '#6ee7c0', fontVariantNumeric: 'tabular-nums' }}>
                 47<span className="text-[0.42em] font-semibold text-[var(--foreground-secondary)] tracking-[0.04em]">% YoY</span>
               </div>
               <div className="mt-3.5 text-[15px] leading-[1.5] text-[var(--foreground-secondary)] max-w-[32ch]">
@@ -222,7 +206,7 @@ export default function Home() {
             </div>
 
             <div className="py-9 md:pl-8 md:py-9">
-              <div className="text-[clamp(48px,5.6vw,76px)] font-black tracking-[-0.04em] leading-[0.95]" style={{ color: '#d8a347', fontVariantNumeric: 'tabular-nums' }}>
+              <div className="text-[clamp(48px,5.6vw,76px)] font-black tracking-[-0.04em] leading-[0.95]" style={{ color: '#f5a524', fontVariantNumeric: 'tabular-nums' }}>
                 $8.4<span className="text-[0.42em] font-semibold text-[var(--foreground-secondary)] tracking-[0.04em]">B by &apos;28</span>
               </div>
               <div className="mt-3.5 text-[15px] leading-[1.5] text-[var(--foreground-secondary)] max-w-[32ch]">

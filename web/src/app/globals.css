@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0f0f0f;
-  --surface: #151515;
-  --surface-elevated: #1b1b1b;
-  --surface-muted: #121212;
-  --foreground: #f5f7fb;
-  --foreground-secondary: #a4adba;
-  --foreground-tertiary: #6c7280;
-  --border: rgba(255, 255, 255, 0.1);
-  --lab: #3b5bdb;
-  --collector: #2f9e44;
-  --amber: #d8a347;
-  --danger: #d26464;
-  --graphite: #737883;
+  --background: #0a0a0f;
+  --surface: #14141d;
+  --surface-elevated: #1d1d29;
+  --surface-muted: #101019;
+  --foreground: #f3f4fb;
+  --foreground-secondary: #9b9fb4;
+  --foreground-tertiary: #646879;
+  --border: rgba(255, 255, 255, 0.09);
+  --lab: #7c5cff;
+  --lab-hover: #8f74ff;
+  --collector: #12b886;
+  --collector-hover: #1ac99a;
+  --amber: #f5a524;
+  --danger: #ef5d6b;
+  --graphite: #767b8a;
+  --brand-from: #7c5cff;
+  --brand-to: #22d3ee;
 }
 
 @theme inline {
@@ -37,8 +41,30 @@ a {
   color: inherit;
 }
 
+/* Slick gradient wordmark for the HTTYR logotype */
+.brand-wordmark {
+  background: linear-gradient(105deg, #c4b6ff 0%, var(--brand-from) 42%, var(--brand-to) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Floating, frosted-glass navigation bar */
+.glass-nav {
+  background: rgba(18, 18, 27, 0.55);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
 ::selection {
-  background: rgba(59, 91, 219, 0.45);
+  background: rgba(124, 92, 255, 0.45);
   color: var(--foreground);
 }
 
@@ -70,8 +96,8 @@ a {
 
 .input-dark:focus {
   outline: none;
-  border-color: rgba(59, 91, 219, 0.65);
-  box-shadow: 0 0 0 1px rgba(59, 91, 219, 0.28);
+  border-color: rgba(124, 92, 255, 0.65);
+  box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.28);
 }
 
 .btn-lab {
@@ -80,7 +106,7 @@ a {
 }
 
 .btn-lab:hover {
-  background: #4b6af0;
+  background: #8f74ff;
 }
 
 .btn-collector {
@@ -89,7 +115,7 @@ a {
 }
 
 .btn-collector:hover {
-  background: #38b754;
+  background: #1ac99a;
 }
 
 .btn-neutral {
@@ -111,13 +137,13 @@ a {
 }
 
 .role-pill-lab {
-  background: rgba(59, 91, 219, 0.16);
-  color: #aebeff;
+  background: rgba(124, 92, 255, 0.16);
+  color: #c4b6ff;
 }
 
 .role-pill-collector {
-  background: rgba(47, 158, 68, 0.16);
-  color: #99ddaa;
+  background: rgba(18, 184, 134, 0.16);
+  color: #6ee7c0;
 }
 
 .tag-outdoor {

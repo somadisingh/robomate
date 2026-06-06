@@ -50,14 +50,14 @@ const JOB_KIND_ORDER: AnalysisJobKind[] = [
 const JOB_STATUS_STYLES: Record<AnalysisJobStatus, string> = {
   pending: 'border border-[var(--border)] bg-[var(--surface-muted)] text-[var(--foreground-secondary)]',
   running: 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]',
-  succeeded: 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]',
+  succeeded: 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]',
   failed: 'bg-[rgba(210,100,100,0.16)] text-[#f3a8a8]',
 }
 
 const RECORDING_STATUS_STYLES: Record<RecordingStatus, string> = {
   uploaded: 'bg-[rgba(115,120,131,0.18)] text-[#d3d7de]',
   analyzing: 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]',
-  analyzed: 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]',
+  analyzed: 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]',
   analysis_failed: 'bg-[rgba(210,100,100,0.16)] text-[#f3a8a8]',
 }
 
@@ -182,7 +182,7 @@ export default async function RecordingPage({
                   Scoring
                 </span>
               ) : recording.score !== null ? (
-                <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-[rgba(47,158,68,0.16)] text-[#99ddaa]">
+                <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]">
                   Score ready
                 </span>
               ) : (
@@ -214,7 +214,7 @@ export default async function RecordingPage({
                 <span
                   className={`mt-3 text-xs px-2 py-0.5 rounded-full font-medium ${
                     recording.success
-                      ? 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]'
+                      ? 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]'
                       : 'bg-[rgba(210,100,100,0.16)] text-[#f3a8a8]'
                   }`}
                 >
@@ -271,7 +271,7 @@ export default async function RecordingPage({
                     <span className="ml-1 text-[var(--foreground-secondary)]">×{count}</span>
                   )}
                   {conf && (
-                    <span className="ml-2 text-[#aebeff]">{conf}</span>
+                    <span className="ml-2 text-[#c4b6ff]">{conf}</span>
                   )}
                 </span>
               )
@@ -349,7 +349,7 @@ export default async function RecordingPage({
                         href={signedUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs font-medium text-[#aebeff] transition-colors hover:text-white"
+                        className="text-xs font-medium text-[#c4b6ff] transition-colors hover:text-white"
                       >
                         Download JSON ↗
                       </a>

@@ -17,10 +17,10 @@ const REQUIREMENT_STYLES: Record<string, string> = {
 }
 
 const STATUS_STYLES: Record<string, string> = {
-  open: 'bg-[rgba(59,91,219,0.16)] text-[#aebeff]',
-  submitted: 'bg-[rgba(47,158,68,0.16)] text-[#99ddaa]',
+  open: 'bg-[rgba(124,92,255,0.16)] text-[#c4b6ff]',
+  submitted: 'bg-[rgba(18,184,134,0.16)] text-[#6ee7c0]',
   'under review': 'bg-[rgba(216,163,71,0.16)] text-[#f0cb7c]',
-  approved: 'bg-[rgba(47,158,68,0.2)] text-[#b4f0c1]',
+  approved: 'bg-[rgba(18,184,134,0.2)] text-[#b4f0c1]',
   rejected: 'bg-[rgba(210,100,100,0.16)] text-[#f3a8a8]',
   full: 'bg-[rgba(115,120,131,0.18)] text-[#d3d7de]',
 }
@@ -102,7 +102,7 @@ export default async function CollectorTaskPage({ params }: { params: Promise<{ 
           </div>
 
           <div className="shrink-0">
-            <div className="text-5xl font-black tracking-[-0.05em] text-[#8ad09a]">
+            <div className="text-5xl font-black tracking-[-0.05em] text-[#6ee7c0]">
               ${task.bounty_amount}
             </div>
             <div className="mt-2 text-sm uppercase tracking-[0.16em] text-[var(--foreground-secondary)]">
@@ -225,7 +225,7 @@ export default async function CollectorTaskPage({ params }: { params: Promise<{ 
                   <p className="text-xs uppercase tracking-[0.16em] text-[var(--foreground-secondary)]">
                     Payout outcome
                   </p>
-                  <p className="mt-3 text-3xl font-black tracking-[-0.04em] text-[#8ad09a]">
+                  <p className="mt-3 text-3xl font-black tracking-[-0.04em] text-[#6ee7c0]">
                     {existingSubmission.status === 'approved' ? `$${task.bounty_amount}` : '$0.00'}
                   </p>
                   <p className="mt-2 text-sm text-[var(--foreground-secondary)]">
@@ -261,7 +261,7 @@ export default async function CollectorTaskPage({ params }: { params: Promise<{ 
                   </div>
                   <h2 className="mt-4 text-xl font-bold text-white">Open in iPhone app</h2>
                   <p className="mt-2 text-sm leading-6 text-[var(--foreground-secondary)]">
-                    Submission happens on iOS only. Launch the Robomate app, capture the task, and your confirmation state will appear here automatically.
+                    Submission happens on iOS only. Launch the HTTYR app, capture the task, and your confirmation state will appear here automatically.
                   </p>
                 </div>
 

@@ -608,7 +608,7 @@ body:has(.studio-scope) { overflow: hidden; }
 }
 .studio-scope .tag--indoor { color: #b1c6f0; border-color: rgba(98,124,173,0.5); }
 .studio-scope .tag--lighting { color: #f0cb7c; border-color: rgba(216,163,71,0.5); }
-.studio-scope .tag--mount { color: #99ddaa; border-color: rgba(47,158,68,0.5); }
+.studio-scope .tag--mount { color: #6ee7c0; border-color: rgba(18,184,134,0.5); }
 .studio-scope .tag--ware { color: #d3d7de; border-color: var(--studio-line-strong); }
 
 .studio-scope .detected {
